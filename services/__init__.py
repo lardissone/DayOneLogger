@@ -41,4 +41,3 @@ class Service(object):
         for char in escapables:
             text = text.replace(char, '\%s' % char)
         return text
-

@@ -1,5 +1,6 @@
 from . import Service
 
+
 class places(Service):
 
     service = 'places'

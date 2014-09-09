@@ -33,7 +33,7 @@ SERVICES = [
 # TODO: find a way to get `tzlocal` working on OSX to get these values
 TIME_ZONE = 'America/Argentina/Buenos_Aires'
 TIME_ZONE_OFFSET = 3
-ENTRY_TAGS = ['daily',]
+ENTRY_TAGS = ['daily']
 # ----------------
 
 try:
@@ -58,7 +58,6 @@ class DayOneLogger(object):
     }
     services_used = []
 
-
     def __init__(self, last_sync):
         self.last_sync = arrow.get(last_sync).datetime
 
@@ -81,7 +80,8 @@ class DayOneLogger(object):
         for day in sorted(self.data['days']):
 
             if day in self.data['entries']:
-                md = ['# Things done on %s' % arrow.get(day).format('MMMM DD, YYYY')]
+                title = '# Things done on %s'
+                md = [title % arrow.get(day).format('MMMM DD, YYYY')]
 
                 entries = self.data['entries'][day]
 
@@ -89,7 +89,9 @@ class DayOneLogger(object):
                     if service in entries:
                         md += ['', self.services_titles[service]]
 
-                        sorted_list = sorted(entries[service], key=lambda k: k['date'])
+                        sorted_list = sorted(
+                            entries[service], key=lambda k: k['date']
+                        )
                         md += [m['md'] for m in sorted_list]
 
                 md += [''] * 2
