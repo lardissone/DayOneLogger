@@ -4,13 +4,13 @@ Log anything you add to a folder to Day One. Ideal to use with IFTTT. Inspired i
 
 ## How does it works
 
-**DayOneLogger** is an script that runs daily (or in the time period you define) and automatically checks for new entries on different files in the defined directory.  
+**DayOneLogger** is an script that runs daily (or in the time period you define) and automatically checks for new entries on different files in the defined directory.
 The files must contain an specific format:
 
     <date>|~|<any extra content defined by the parsers>@done
 
-The date need to be in the format `September 05, 2014 at 03:06PM` (the one used by IFTTT).  
-The separator `|~|` is just to separate each content of the entry. You can add as many separators as you need, later the parser will do the magic understanding what each content means.  
+The date need to be in the format `September 05, 2014 at 03:06PM` (the one used by IFTTT).
+The separator `|~|` is just to separate each content of the entry. You can add as many separators as you need, later the parser will do the magic understanding what each content means.
 And finally you need to add the ending token identified as `@done`, to inform the parsers where an entry finish.
 
 Example from a completed reminder in Reminders iOS app:
@@ -21,7 +21,7 @@ The script only stores on Day One all entries from previous day and before, it's
 
 It also logs previous unimported days.
 
-The resulting entry looks like:  
+The resulting entry looks like:
 ![](http://i.imgur.com/RfnurZ4.png)
 
 ## Installation
@@ -46,15 +46,15 @@ You need to edit a few settings in the source of the `dayone.py` file:
 - `TIME_ZONE_OFFSET`: it's the number of difference in hours from `UTC`. It's also something we should calculate automatically, probably in the future.
 - `ENTRY_TAGS`: a list with the tags to be used in each entry.
 
-Finally, set the parsers you want to process at the end of the file:
+- `SERVICES`: a list with the services you want to process. Review each service file in the `services` folder in case you need to do custom modifications, actual services are:
 
-    do.process([
+    SERVICES = [
         'github',
         'reminders',
         'movies',
         'places',
         'tracks',
-        'tweets'])
+        'tweets']
 
 To run the script you just need to call it from the terminal by using:
 
