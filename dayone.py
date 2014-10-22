@@ -28,7 +28,9 @@ SERVICES = [
     'tweets',
     'movies',
     'places',
-    'tracks']
+    'tracks',
+    'wakatime'
+    ]
 
 # TODO: find a way to get `tzlocal` working on OSX to get these values
 TIME_ZONE = 'America/Argentina/Buenos_Aires'
@@ -36,12 +38,19 @@ TIME_ZONE_OFFSET = 3
 ENTRY_TAGS = ['daily']
 # ----------------
 
+DEBUG = False  # if True, it doesn't writes to Day One
+
+LOCAL_PATH = os.path.dirname(os.path.realpath(__file__))
+SYNC_FILE = os.path.join(LOCAL_PATH, '.last_sync')
+
 try:
-    with open('.last_sync') as f:
-        LAST_SYNC = f.read()
+    if not DEBUG:
+        with open(SYNC_FILE) as f:
+            LAST_SYNC = f.read()
+    else:
+        LAST_SYNC = str(arrow.now().replace(weeks=-1))
 except IOError:
     LAST_SYNC = str(arrow.get('2001-01-01').datetime)
-
 
 class DayOneLogger(object):
     data = {
@@ -54,7 +63,8 @@ class DayOneLogger(object):
         'reminders': '### Reminders',
         'movies': '### Movies',
         'tracks': '### Loved tracks',
-        'tweets': '### Tweets'
+        'tweets': '### Tweets',
+        'wakatime': '### Coding stats',
     }
     services_used = []
 
@@ -100,6 +110,7 @@ class DayOneLogger(object):
 
     def _save_to_day_one(self):
         for day in sorted(self.data['days'])[:-1]:
+        #for day in sorted(self.data['days']):
 
             uuid_val = uuid.uuid1().hex.upper()
             utc_time = arrow.utcnow()
@@ -125,7 +136,8 @@ class DayOneLogger(object):
                     'Software Agent': 'DayOneLogger'
                 }
             }
-            plistlib.writePlist(entry_plist, filename)
+            if not DEBUG:
+                plistlib.writePlist(entry_plist, filename)
 
     def process(self, services, markdown=True, save=True):
         entries = []
@@ -133,7 +145,7 @@ class DayOneLogger(object):
         for service in services:
             source = __import__('services.%s' % service)
             source = getattr(sources, service)
-            s = getattr(source, service)(IFTTT_DIR, LAST_SYNC)
+            s = getattr(source, service)(IFTTT_DIR, LAST_SYNC, DEBUG)
             entries += s.parse()
 
         if not entries:
@@ -154,8 +166,9 @@ class DayOneLogger(object):
             minute=59,
             second=59)
 
-        with open('.last_sync', 'w') as f:
-            f.write(str(last_entry.datetime))
+        if not DEBUG:
+            with open(SYNC_FILE, 'w') as f:
+                f.write(str(last_entry.datetime))
 
 
 if __name__ == '__main__':

@@ -8,9 +8,10 @@ __all__ = [os.path.basename(f)[:-3] for f in modules]
 
 class Service(object):
 
-    def __init__(self, iftttdir, last_sync):
+    def __init__(self, iftttdir, last_sync, debug):
         self.iftttdir = iftttdir
         self.last_sync = last_sync
+        self.debug = debug
 
     def process_file(self, filename):
         filename = '%s/%s' % (self.iftttdir, filename)
