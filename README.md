@@ -54,7 +54,9 @@ You need to edit a few settings in the source of the `dayone.py` file:
         'movies',
         'places',
         'tracks',
-        'tweets']
+        'tweets',
+        'wakatime',
+        'todoist',]
 
 To run the script you just need to call it from the terminal by using:
 
@@ -103,6 +105,19 @@ Log all the places you visits.
 Log all your loved tracks.
 
 <a href="https://ifttt.com/view_embed_recipe/201737-dayonelogger-loved-track-to-dropbox" target = "_blank" class="embed_recipe embed_recipe-l_36" id= "embed_recipe-201737"><img src= 'https://ifttt.com/recipe_embed_img/201737' alt="IFTTT Recipe: DayOneLogger: Loved track to Dropbox connects last-fm to dropbox" width="370px" style="max-width:100%"/></a><script async type="text/javascript" src= "//ifttt.com/assets/embed_recipe.js"></script>
+
+
+### Todoist completed tasks
+
+Log all the tasks you've completed.
+
+<a href="https://ifttt.com/view_embed_recipe/231068-dayonelogger-todoist-to-dropbox" target = "_blank" class="embed_recipe embed_recipe-l_32" id= "embed_recipe-231068"><img src= 'https://ifttt.com/recipe_embed_img/231068' alt="IFTTT Recipe: DayOneLogger: Todoist to Dropbox connects todoist to dropbox" width="370px" style="max-width:100%"/></a><script async type="text/javascript" src= "//ifttt.com/assets/embed_recipe.js"></script>
+
+### Wakatime worked hours
+
+Log how much time did you spend in each project using [Wakatime](https://wakatime.com/).
+
+You need to create an environment variable called `WAKATIME_API_KEY` with your Wakatime API key, or add it to the `services/wakatime.py` file.
 
 
 ## TO DO
