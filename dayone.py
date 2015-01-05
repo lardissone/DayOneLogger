@@ -29,8 +29,9 @@ SERVICES = [
     'movies',
     'places',
     'tracks',
-    'wakatime'
-    ]
+    'wakatime',
+    'todoist'
+]
 
 # TODO: find a way to get `tzlocal` working on OSX to get these values
 TIME_ZONE = 'America/Argentina/Buenos_Aires'
@@ -52,6 +53,7 @@ try:
 except IOError:
     LAST_SYNC = str(arrow.get('2001-01-01').datetime)
 
+
 class DayOneLogger(object):
     data = {
         'days': [],
@@ -65,6 +67,7 @@ class DayOneLogger(object):
         'tracks': '### Loved tracks',
         'tweets': '### Tweets',
         'wakatime': '### Coding stats',
+        'todoist': '### Todoist completed tasks',
     }
     services_used = []
 
