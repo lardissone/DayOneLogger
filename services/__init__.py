@@ -21,14 +21,14 @@ class Service(object):
         entries = []
         for n in parts:
             p = n.lstrip().split('|~|')
-            day = arrow.get(p[0], 'MMMM DD, YYYY at HH:mmA')
+            day = arrow.get(p[0], 'MMMM D, YYYY at HH:mmA')
 
             if day.datetime > arrow.get(self.last_sync):
                 entries.append({
                     'service': service,
                     'date': day,
                     'values': p[1:]
-                    })
+                })
         return entries
 
     def _md_link(self, text):
